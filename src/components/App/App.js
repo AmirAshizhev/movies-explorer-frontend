@@ -1,11 +1,12 @@
 import './App.css';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import Promo from '../Promo/Promo';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<h1>О проекте</h1>}/>
+        <Route path='/' element={<Promo/>}/>
         <Route path='/movies' element={<h1>«Фильмы»</h1>}/>
         <Route path='/saved-movies' element={<h1>«Сохранённые фильмы»</h1>}/>
         <Route path='/profile' element={<h1>профилем пользователя</h1>}/>

@@ -1,0 +1,26 @@
+.promo {
+  background-color: #F3C1F8;
+  background-image: url(../../images/pic__COLOR_landing-logo.svg);
+  /* width: 248px;
+  height: 248px; */
+  margin-left: auto;
+  margin-right: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.promo__title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 31px;
+  line-height: 39px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #000000;
+
+  padding-top: 207px;
+  padding-bottom: 246px;
+}
