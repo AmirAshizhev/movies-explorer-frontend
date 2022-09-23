@@ -1,14 +1,15 @@
 .promo {
   background-color: #F3C1F8;
   background-image: url(../../images/pic__COLOR_landing-logo.svg);
-  /* width: 248px;
-  height: 248px; */
   margin-left: auto;
   margin-right: auto;
   background-position: center;
   background-repeat: no-repeat;
   padding-left: 10px;
   padding-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .promo__title {
@@ -23,4 +24,30 @@
 
   padding-top: 207px;
   padding-bottom: 246px;
+
 }
+
+@media (min-width: 424px){
+  .promo__title {
+    width: 403px;
+  }
+
+}
+
+@media (min-width: 768px){
+  .promo__title {
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    padding-top: 326px;
+    padding-bottom: 342px;
+    width: 730px;
+    margin: auto 0;
+  }
+
+  .promo {
+    background-image: url(../../images/pic__COLOR_landing-logo\ big.svg);
+
+  }
+}
+
