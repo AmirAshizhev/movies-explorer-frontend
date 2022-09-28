@@ -1,0 +1,99 @@
+.aboutProject{
+  min-width: 284px;
+  margin: 0 18px;
+}
+
+.aboutProject__title{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+
+  color: #000000;
+
+  border-bottom: #000000 solid 1px;
+  margin-top: 70px;
+  padding-bottom: 28px;
+}
+
+.aboutProject__paragraphs{
+  display: grid;
+}
+
+.aboutProject__weeks{
+  display: grid;
+  grid-template-columns: minmax(100px, 21%) 1fr;
+  justify-items: stretch;
+  align-items: stretch;
+  margin-top: 60px;
+}
+
+.aboutProject__week{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #000000;
+  margin: 0;
+  padding: 11px 0;
+}
+
+.aboutProject__week_gray{
+  background-color: #F2F2F2;
+  color: #000000;
+}
+
+.aboutProject__week-task{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #A0A0A0;
+  margin: 10px 0 70px 0;
+}
+
+@media (min-width: 768px){
+  .aboutProject{
+    margin: 0 50px;
+  }
+
+  .aboutProject__weeks{
+    grid-template-columns: minmax(140px, 20%) 1fr;
+    margin-top: 93px;
+  }
+
+  .aboutProject__week{
+    font-size: 14px;
+    line-height: 17px;
+    padding: 9px 0;
+  }
+
+  .aboutProject__week-task{
+    font-size: 14px;
+    line-height: 17px;
+    margin: 14px 0 90px 0;
+  }
+}
+
+@media (min-width: 1280px){
+  .aboutProject{
+    margin: 0 auto;
+    max-width: 1140px;
+  }
+
+  .aboutProject__weeks{
+    margin-top: 110px;
+  }
+
+  .aboutProject__week-task{
+    font-weight: 500;
+    margin: 14px 0 110px 0;
+  }
+}
