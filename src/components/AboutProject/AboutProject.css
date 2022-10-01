@@ -64,6 +64,13 @@
     margin: 0 50px;
   }
 
+  .aboutProject__title{
+    font-size: 22px;
+    line-height: 27px;
+    margin-top: 70px;
+    padding-bottom: 23px;
+  }
+
   .aboutProject__weeks{
     grid-template-columns: minmax(140px, 20%) 1fr;
     margin-top: 93px;
@@ -86,6 +93,10 @@
   .aboutProject{
     margin: 0 auto;
     max-width: 1140px;
+  }
+
+  .aboutProject__title{
+    margin-top: 110px;
   }
 
   .aboutProject__weeks{
