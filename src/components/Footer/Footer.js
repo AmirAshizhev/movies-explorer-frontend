@@ -2,14 +2,14 @@ import './Footer.css'
 
 const Footer = () => {
   return(
-    <footer>
-      <h3>x BeatFilm</h3>
-      <div>
-      <nav>
-        <li>YA.PRAKT</li>
-        <li>Github</li>
+    <footer className='footer'>
+      <h3 className='footer__title'>Учебный проект Яндекс.Практикум х BeatFilm.</h3>
+      <div className='footer__box'>
+      <nav className='footer__items'>
+        <li className='footer__item'>Яндекс.Практикум</li>
+        <li className='footer__item'>Github</li>
       </nav>
-      <p>2020</p>
+      <p className='footer__year'>©2020</p>
       </div>
     </footer>
   )
