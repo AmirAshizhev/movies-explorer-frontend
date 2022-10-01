@@ -10,9 +10,7 @@
   font-size: 18px;
   line-height: 22px;
   letter-spacing: -0.04em;
-
   color: #000000;
-
   border-bottom: #000000 solid 1px;
   margin-top: 70px;
   padding-bottom: 28px;
@@ -20,6 +18,29 @@
 
 .aboutProject__paragraphs{
   display: grid;
+}
+
+.aboutProject__subtitle{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  margin: 0 0 16px 0;
+}
+
+.aboutProject__text{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  margin: 0;
+}
+
+.aboutProject__text:first-of-type{
+  margin-bottom: 56px;
 }
 
 .aboutProject__weeks{
@@ -71,6 +92,28 @@
     padding-bottom: 23px;
   }
 
+  .aboutProject__paragraphs{
+    grid-template-columns: minmax(319px, 550px) minmax(319px, 550px);
+    grid-template-rows: auto auto;
+    grid-auto-flow: column;
+    row-gap: 22px;
+    column-gap: 30px;
+    justify-content: center;
+  }
+
+  .aboutProject__subtitle{
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .aboutProject__text{
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .aboutProject__text:first-of-type{
+    margin-bottom: 0;
+  }
+
   .aboutProject__weeks{
     grid-template-columns: minmax(140px, 20%) 1fr;
     margin-top: 93px;
@@ -97,6 +140,18 @@
 
   .aboutProject__title{
     margin-top: 110px;
+  }
+
+  .aboutProject__paragraphs{
+    grid-template-columns: minmax(auto, 550px) minmax(auto, 550px);
+    row-gap: 26px;
+    column-gap: 40px;
+  }
+
+
+  .aboutProject__text{
+    font-size: 14px;
+    line-height: 20px;
   }
 
   .aboutProject__weeks{
