@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom'
 import Navigation from '../Navigation/Navigation';
 import './Header.css'
 
-const Header = () => {
+const Header = ({ loggedIn, headerClassName }) => {
   return(
-    <header className='header'>
+    <header className={`header ${headerClassName}`}>
       <div className="header__box">
         <Link to="/"  className="header__logo"></Link>
-        <Navigation/>
+        <Navigation loggedIn={loggedIn}/>
       </div>
     </header>
   )

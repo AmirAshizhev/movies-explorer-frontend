@@ -4,9 +4,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css'
 
 const Movies = () => {
+  const loggedIn = false;
+
   return(
+
+
     <section>
-      <Header/>
+      <Header loggedIn={loggedIn}/>
       <div className='movies__search'>
         <form className='movies__form'>
           <input className='movies__search-input' placeholder='Фильмы'></input>

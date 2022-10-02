@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Movies from '../Movies/Movies';
@@ -18,6 +18,7 @@ function App() {
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/signin' element={<Login/>}/>
         <Route path='/signup' element={<Register/>}/>
+        <Route path='/popup' element={<h1>Popup</h1>}/>
         <Route path='/*' element={<PageNotFound/>}/>
       </Routes>
     </div>

@@ -38,7 +38,7 @@
   }
 
   .movies-card-list__btn{
-  
+    width: 320px;
   }
 }
 
@@ -52,9 +52,5 @@
     grid-template-columns: auto auto auto;
     grid-template-rows: repeat(auto-fill, auto);
     gap: 32px;
-  }
-
-  .movies-card-list__btn{
-    width: 320px;
   }
 }

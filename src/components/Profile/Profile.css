@@ -46,6 +46,9 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
+  border: 0;
+  text-align: right;
+  background-color: white;
 }
 
 .profile__btn{
@@ -73,9 +76,6 @@
 
 @media(min-width: 768px){
 
-  .profile__items{
-    
-  }
 
   .profile__btn{
     margin: 210px auto 16px auto;
@@ -96,9 +96,6 @@
 
 @media(min-width: 1280px){
 
-  .profile__items{
-    
-  }
 
   .profile__title{
     margin: 74px 0 123px 0;

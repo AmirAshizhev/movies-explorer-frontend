@@ -7,9 +7,12 @@ import Promo from "../Promo/Promo"
 import Techs from "../Techs/Techs"
 
 const Main = () => {
+
+  const loggedIn = true;
+  const headerClassName = 'header_pink'
   return( 
     <main>
-      <Header/>
+      <Header loggedIn={loggedIn} headerClassName={headerClassName}/>
       <Promo/>
       <NavTab/>
       <AboutProject/>
