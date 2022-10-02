@@ -1,0 +1,39 @@
+.navigation{
+  display: flex;
+  align-items: center;
+}
+
+.navigation__link{
+  text-decoration: none;
+  color: black;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.navigation__link_black{
+  background-color: black;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+
+.navigation__link:first-of-type{
+  margin-right: 14px;
+}
+
+@media(min-width: 768px){
+  .navigation__link:first-of-type{
+    margin-right: 30px;
+  }
+
+  .navigation__link{
+    font-size: 12px;
+  }
+
+  .navigation__link_black{
+    padding: 8px 20px;
+  }
+}
