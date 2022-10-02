@@ -12,6 +12,11 @@
   width: 214px;
 }
 
+.navTab__link:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
 .navTab__link{
   font-family: 'Inter';
   font-style: normal;

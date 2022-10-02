@@ -100,6 +100,12 @@
 
 }
 
+.portfolio__link:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
 .portfolio__links:first-of-type{
   margin-top: 0;
 }

@@ -62,6 +62,12 @@
   margin: 379px auto 16px auto;
 }
 
+.profile__btn:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
 .profile__btn-signout{
   font-family: 'Inter';
   font-style: normal;
@@ -72,6 +78,12 @@
   border: 0;
   background-color: white;
   margin: 0 auto 40px auto;
+}
+
+.profile__btn-signout:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
 }
 
 @media(min-width: 768px){

@@ -53,6 +53,11 @@
   line-height: 11px;
 }
 
+.movie-card__btn:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
 
 @media(min-width: 768px){
   .movie-card__title{
