@@ -118,3 +118,24 @@
     
   }
 }
+
+.movies__checkbox-label .movies__checkbox{
+  display: none;
+}
+
+.movies__checkbox-label .movies__checkbox-span{
+  background-image: url(../../images/movie__checkbox_off.svg);
+  height: 20px;
+  width: 36px;
+  display: inline-block;
+  position: relative;
+  margin-right: 14px;
+
+}
+
+[type=checkbox]:checked + .movies__checkbox-span:before{
+  background-image: url(../../images/movie__checkbox_on.svg);
+  height: 20px;
+  width: 36px;
+  display: inline-block;
+}

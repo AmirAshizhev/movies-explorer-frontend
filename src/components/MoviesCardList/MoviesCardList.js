@@ -1,13 +1,13 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css'
 
-const MoviesCardList = () => {
+const MoviesCardList = ({ spanClass, buttonClass}) => {
   return(
     <section>
       <ul className='movies-card-list'>
-        <MoviesCard/>
-        <MoviesCard/>
-        <MoviesCard/>
+        <MoviesCard spanClass={spanClass} buttonClass={buttonClass}/>
+        <MoviesCard spanClass={spanClass} buttonClass={buttonClass}/>
+        <MoviesCard spanClass={spanClass} buttonClass={buttonClass}/>
         <MoviesCard/>
         <MoviesCard/>
         <MoviesCard/>

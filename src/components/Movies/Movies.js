@@ -7,8 +7,7 @@ const Movies = () => {
   const loggedIn = false;
 
   return(
-
-
+    
     <section>
       <Header loggedIn={loggedIn}/>
       <div className='movies__search'>
@@ -18,7 +17,10 @@ const Movies = () => {
           <span className='movies__search-span'></span>
         </form>
         <div className='movies__box'>
-          <input className='movies__checkbox' type='checkbox'></input>
+          <label className='movies__checkbox-label'>
+            <input className='movies__checkbox' type='checkbox'></input>
+            <span className='movies__checkbox-span'></span>
+          </label>
           <p className='movies__text'>Короткометражки</p>
         </div>
       </div>

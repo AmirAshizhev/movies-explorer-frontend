@@ -53,6 +53,16 @@
   line-height: 11px;
 }
 
+.movie-card__btn-delete{
+  background-image: url(../../images/delete__saved-movie.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.movie-card__btn-span{
+  display: none;
+}
+
 .movie-card__btn:hover{
   opacity: 0.8;
   transition: opacity 0.5s ease;
