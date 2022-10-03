@@ -14,23 +14,23 @@ const Portfolio = () => {
         <a href='https://github.com/AmirAshizhev' target="_blank " className="portfolio__github">Github</a>
       </div>
       <h4 className='portfolio__links-title'>Портфолио</h4>
-      
+
       <ul className='portfolio__links-list'>
         <li className='portfolio__links-box'>
-          <a className='portfolio__links' href='https://github.com/AmirAshizhev/how-to-learn' target="_blank">
+          <a className='portfolio__links' href='https://github.com/AmirAshizhev/how-to-learn' target="_blank" rel="noreferrer">
             <p className='portfolio__link' >Статичный сайт</p>
             <div className='portfolio__link-arrow'></div>
           </a>
         </li>
         <li className='portfolio__links-box'>
-          <a className='portfolio__links' href="https://amirashizhev.github.io/russian-travel/" target="_blank">
+          <a className='portfolio__links' href="https://github.com/AmirAshizhev/russian-travel" target="_blank" rel="noreferrer">
             <p className='portfolio__link'>Адаптивный сайт</p>
             <div className='portfolio__link-arrow'></div>
           </a>
         </li>
         
         <li className='portfolio__links-box'>
-          <a className='portfolio__links' href="https://amirashizhev.github.io/" target="_blank">
+          <a className='portfolio__links' href="https://github.com/AmirAshizhev/react-mesto-auth" target="_blank" rel="noreferrer">
             <p className='portfolio__link'>Одностраничное приложение</p>
             <div className='portfolio__link-arrow'></div>
           </a>
