@@ -8,7 +8,7 @@
 }
 
 .movie-card__title{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -19,7 +19,7 @@
 .movie-card__time{
   margin: 14px 14px 14px 0;
   justify-self: end;
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
@@ -46,17 +46,26 @@
   border-radius: 30px;
   border: 0;
   padding: 9px 0;
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 11px;
 }
 
+.movie-card__btn-active{
+  background-image: url(../../images/saved-movie__btn.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 14px 0 15px 0;
+  background-color: #FF4062;
+}
+
 .movie-card__btn-delete{
   background-image: url(../../images/delete__saved-movie.svg);
   background-position: center;
   background-repeat: no-repeat;
+  padding: 14px 0 15px 0;
 }
 
 .movie-card__btn-span{

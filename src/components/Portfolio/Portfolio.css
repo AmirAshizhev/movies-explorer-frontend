@@ -3,7 +3,7 @@
 }
 
 .portfolio__title{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -29,7 +29,7 @@
 }
 
 .portfolio__name{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
@@ -39,7 +39,7 @@
 }
 
 .portfolio__subtitle{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
@@ -48,7 +48,7 @@
 }
 
 .portfolio__text{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -58,17 +58,18 @@
 }
 
 .portfolio__github{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   color: #000000;
   text-decoration: none;
+  width: fit-content;
 }
 
 .portfolio__links-title{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -77,19 +78,35 @@
   mix-blend-mode: normal;
   margin: 70px 0 40px 0;
 }
+.portfolio__links-list{
+  padding: 0;
+  margin: 0;
+}
 
-.portfolio__links{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.portfolio__links-box{
   list-style-type: none;
   padding-bottom: 19px;
   border-bottom: #E6E6E6 1px solid;
   margin-top: 20px;
 }
 
+.portfolio__links{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* list-style-type: none;
+  padding-bottom: 19px;
+  border-bottom: #E6E6E6 1px solid;
+  margin-top: 20px; */
+  text-decoration: none;
+}
+
+.portfolio__links:hover{
+  cursor: default;
+}
+
 .portfolio__link{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -97,6 +114,7 @@
   letter-spacing: -0.04em;
   color: #000000;
   text-decoration: none;
+  margin: 0;
 
 }
 
@@ -106,10 +124,10 @@
   cursor: pointer;
 }
 
-.portfolio__links:first-of-type{
+.portfolio__links-box:first-of-type{
   margin-top: 0;
 }
-.portfolio__links:last-of-type{
+.portfolio__links-box:last-of-type{
   padding-bottom: 0;
   border-bottom: none;
 }
@@ -120,6 +138,12 @@
   width: 18px;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.portfolio__link-arrow:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
 }
 
 @media(min-width: 768px){

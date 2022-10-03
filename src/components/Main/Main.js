@@ -11,15 +11,18 @@ const Main = () => {
   const loggedIn = true;
   const headerClassName = 'header_pink'
   return( 
-    <main>
+    <>        
       <Header loggedIn={loggedIn} headerClassName={headerClassName}/>
-      <Promo/>
-      <NavTab/>
-      <AboutProject/>
-      <Techs/>
-      <Portfolio/>
+        <main>
+          <Promo/>
+          <NavTab/>
+          <AboutProject/>
+          <Techs/>
+          <Portfolio/>        
+        </main>
       <Footer/>
-    </main>
+    </>
+
   )
 }
 

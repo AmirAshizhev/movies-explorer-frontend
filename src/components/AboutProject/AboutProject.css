@@ -4,7 +4,7 @@
 }
 
 .aboutProject__title{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -21,7 +21,7 @@
 }
 
 .aboutProject__subtitle{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -31,7 +31,7 @@
 }
 
 .aboutProject__text{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -52,7 +52,7 @@
 }
 
 .aboutProject__week{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
@@ -70,7 +70,7 @@
 }
 
 .aboutProject__week-task{
-  font-family: 'Inter';
+  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
