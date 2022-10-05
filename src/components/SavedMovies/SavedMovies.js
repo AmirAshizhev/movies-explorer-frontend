@@ -1,7 +1,6 @@
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-// import './SavedMovies.css'
 import '../Movies/Movies.css'
 
 const SavedMovies = () => {
@@ -22,7 +21,7 @@ const SavedMovies = () => {
             <div className='movies__box'>
               <label className='movies__checkbox-label'>
                 <input className='movies__checkbox' type='checkbox'></input>
-                <span className='movies__checkbox-span'></span>
+                <span className='movies__checkbox-span movies__checkbox-span-visible'></span>
               </label>
               <p className='movies__text'>Короткометражки</p>
             </div>
