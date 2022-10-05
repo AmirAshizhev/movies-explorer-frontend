@@ -1,0 +1,43 @@
+.header{
+  padding-top: 18px;
+  padding-bottom: 18px;
+
+}
+
+.header_pink{
+  background-color: #F3C1F8;
+}
+
+.header__box{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 14px;
+}
+
+.header__logo{
+  width: 38px;
+  height: 38px;
+  background-image: url(../../images/header__logo.svg);
+}
+
+.header__logo:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
+@media(min-width: 768px){
+
+  .header__box{
+    margin: 0 50px;
+  }
+  
+}
+
+@media(min-width: 1280px){
+
+  .header__box{
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+}

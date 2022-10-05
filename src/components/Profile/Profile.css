@@ -1,0 +1,123 @@
+.profile__box{
+  min-width: 260px;
+  max-width: 470px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__items{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30px;
+  min-width: 260px;
+  max-width: 410px;
+}
+
+.profile__items:first-of-type{
+  border-bottom: #E8E8E8 1px solid;
+  margin-bottom: 17px;
+  padding-bottom: 16px;
+
+}
+
+.profile__title{
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+
+  margin: 70px 0 80px 0;
+}
+
+.profile__name{
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.profile__value{
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  border: 0;
+  text-align: right;
+  background-color: white;
+}
+
+.profile__btn{
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  border: 0;
+  background-color: white;
+  margin: 379px auto 16px auto;
+}
+
+.profile__btn:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
+.profile__btn-signout{
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF4062;
+  border: 0;
+  background-color: white;
+  margin: 0 auto 40px auto;
+}
+
+.profile__btn-signout:hover{
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
+@media(min-width: 768px){
+
+
+  .profile__btn{
+    margin: 210px auto 16px auto;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .profile__title{
+    margin: 236px 0 96px 0;
+  }
+
+  .profile__btn-signout{
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0 auto 269px auto;
+  }
+}
+
+@media(min-width: 1280px){
+
+
+  .profile__title{
+    margin: 74px 0 123px 0;
+  }
+
+  .profile__btn{
+    margin: 220px auto 16px auto;
+  }
+
+  .profile__btn-signout{
+    margin: 0 auto 70px auto;
+  }
+}
