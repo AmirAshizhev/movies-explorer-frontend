@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css'
 
-const Movies = () => {
+const Movies = ({ cards }) => {
   const loggedIn = false;
   const spanClass = 'movie-card__btn-span';
   const buttonClass = 'movie-card__btn-active';
@@ -27,7 +27,7 @@ const Movies = () => {
             </div>
           </div>
           <span className='movies__span'></span>
-          <MoviesCardList spanClass={spanClass} buttonClass={buttonClass}/>
+          <MoviesCardList spanClass={spanClass} buttonClass={buttonClass} cards={cards}/>
         </main>
       <Footer/>
     </>
