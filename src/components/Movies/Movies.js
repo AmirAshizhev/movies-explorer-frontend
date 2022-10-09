@@ -1,27 +1,61 @@
-import { useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useApi } from '../../utils/hooks/useApi';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import './Movies.css'
+import moviesApi from '../../utils/MoviesApi';
 
-const Movies = ({ cards }) => {
+const Movies = () => {
   const loggedIn = false;
+  // const loading = false;
   const spanClass = 'movie-card__btn-span';
   const buttonClass = 'movie-card__btn-active';
 
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
+  const [currentQuery, setCurrentQuery] = useState(query);
   const [movies, setMovies] = useState([])
+
+    const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    moviesApi.getCards()
+    .then((cards) => {
+      setCards(cards)
+      console.log(cards)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .finally(() => {
+      setLoading(false);
+  });
+  }, [currentQuery])
+
+//фильтрация на сабмите, а должа быть при запросе 
+
+  // const fetchMovies = useCallback(() =>{
+  //   return moviesApi.getCards()
+  //   // .then((cards) => {
+  //   //   setCards(cards)
+  //   //   console.log(cards)
+  //   // })
+  // }, [currentQuery])
+
+  // const { data: cards = [], loading } = useApi(fetchMovies);
 
   function handleSubmit(e) {
     e.preventDefault();
     // setLoading(true);
     // console.log(cards)
-    // console.log(filterMoviesByQuery(cards, query));
+    // console.log(filterMoviesByQuery(cards, query));    
+
     setMovies(filterMoviesByQuery(cards, query))
-    console.log(cards)
+    setCurrentQuery(query);
+    // console.log(cards)
 
   }
 
@@ -29,11 +63,11 @@ const Movies = ({ cards }) => {
     setQuery(e.target.value)
   }
 
-  function searchMovies(name) {
-    //делать запрос к api 
-    //фильтровать карты по имени 
-    //выдавать эти карты 
-  }
+  // function searchMovies() {
+  //   //делать запрос к api 
+  //   //фильтровать карты по имени 
+  //   //выдавать эти карты 
+  // }
 
   function filterMoviesByQuery(movies, query){ //функция для одного фильма
 
