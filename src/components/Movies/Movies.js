@@ -1,5 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
-import { useApi } from '../../utils/hooks/useApi';
+import { useState, useEffect } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -9,23 +8,23 @@ import moviesApi from '../../utils/MoviesApi';
 
 const Movies = () => {
   const loggedIn = false;
-  // const loading = false;
   const spanClass = 'movie-card__btn-span';
   const buttonClass = 'movie-card__btn-active';
 
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
   const [currentQuery, setCurrentQuery] = useState(query);
-  const [movies, setMovies] = useState([])
+  const [movies, setMovies] = useState([]);
+  const [cards, setCards] = useState([]);
 
-    const [cards, setCards] = useState([]);
+
+  const [isChecked, setIsCheked] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     moviesApi.getCards()
     .then((cards) => {
       setCards(cards)
-      console.log(cards)
     })
     .catch(err => {
       console.log(err);
@@ -35,54 +34,37 @@ const Movies = () => {
   });
   }, [currentQuery])
 
-//фильтрация на сабмите, а должа быть при запросе 
-
-  // const fetchMovies = useCallback(() =>{
-  //   return moviesApi.getCards()
-  //   // .then((cards) => {
-  //   //   setCards(cards)
-  //   //   console.log(cards)
-  //   // })
-  // }, [currentQuery])
-
-  // const { data: cards = [], loading } = useApi(fetchMovies);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // setLoading(true);
-    // console.log(cards)
-    // console.log(filterMoviesByQuery(cards, query));    
-
-    setMovies(filterMoviesByQuery(cards, query))
+    setMovies(filterMoviesByQuery(cards, query, isChecked))
     setCurrentQuery(query);
-    // console.log(cards)
-
   }
 
   function handleChange(e) {
     setQuery(e.target.value)
   }
 
-  // function searchMovies() {
-  //   //делать запрос к api 
-  //   //фильтровать карты по имени 
-  //   //выдавать эти карты 
-  // }
-
-  function filterMoviesByQuery(movies, query){ //функция для одного фильма
+  function filterMoviesByQuery(movies, query, isChecked) {
 
     const filterMovie = (movie) => {
       return movie.nameRU.toLowerCase().includes(query.toLowerCase())
     }
 
-    return movies.filter(filterMovie)
+    const filterShortMovies = (movie) => {
+      return movie.duration <= 40;
+    }
+
+    if (isChecked) {
+      return movies.filter(filterShortMovies).filter(filterMovie)
+    } else {
+      return movies.filter(filterMovie)
+    }
+    
   }
 
-  // const { data: cards = [], loading } = useApi
-  
-  // if (loading) {
-  //   return <Preloader/>
-  // }
+  // console.log(isChecked);
+
 
   return(
     <>
@@ -102,7 +84,13 @@ const Movies = () => {
             </form>
             <div className='movies__box'>
               <label className='movies__checkbox-label'>
-                <input className='movies__checkbox' type='checkbox'></input>
+                <input 
+                  className='movies__checkbox' 
+                  type='checkbox'
+                  checked={isChecked}
+                  onChange={() => setIsCheked(!isChecked)}
+                >
+                </input>
                 <span className='movies__checkbox-span movies__checkbox-span-visible'></span>
               </label>
               <p className='movies__text'>Короткометражки</p>
