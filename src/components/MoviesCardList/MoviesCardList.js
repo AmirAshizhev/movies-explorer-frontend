@@ -1,14 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css'
 
 const MoviesCardList = ({ spanClass, buttonClass, cards, isConected}) => {
 
-  const [cardsToRender, setCardsToRender] = useState(12);
+  const [cardsToRender, setCardsToRender] = useState([]);
+  const [noMoreMovies, setNoMoreMovies] = useState(false)
+
+  // let { innerWidth: width} = window;
+  // console.log(width)
+
+  //фильтруем карты (12 шт)
+  //добавляем еще 3 карты при нажатии на еще 
+  useEffect(() => {
+
+
+    setCardsToRender(cards.slice(0, 12))
+    if (cards.length <= 12) {
+      setNoMoreMovies(true)
+    }
+  }, [cards])
 
 
   // cardsToRender = cards.slice(0, 12)
-  const cardsElements = cards.map((card) => (
+  const cardsElements = cardsToRender.map((card) => (
     <MoviesCard
       {...card}
       card={card}
@@ -16,7 +31,7 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected}) => {
     />
   ))
 
-  // console.log(cardsElements.slice(0, 12));
+  console.log(cardsToRender);
 
   function conecting(isConected) {
     if (isConected === null) {
@@ -30,8 +45,11 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected}) => {
 
   function handleBtnClick () {
 
-    setCardsToRender(cardsToRender+3)
-    console.log(cardsToRender);
+    // setCardsToRender(cardsToRender+3)
+    setCardsToRender(cardsToRender.concat(cards.slice(cardsToRender.length, cardsToRender.length+3)))
+    if (cardsToRender.length+3 >= cards.length) {
+      setNoMoreMovies(true)
+    }
   }
 
   return(
@@ -43,9 +61,9 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected}) => {
           <ul className='movies-card-list'>
             {cardsElements}
           </ul>
-          <div className='movies-card-list__btn-box'>
+          {!noMoreMovies && <div className='movies-card-list__btn-box'>
             <button className='movies-card-list__btn' onClick={handleBtnClick}>Еще</button>
-          </div>
+          </div>}
         </>
          : <p className='movies-card-list__msg'>{conecting(isConected)}</p>
       }

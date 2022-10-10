@@ -49,7 +49,7 @@ const Movies = () => {
     .then((cards) => {
       // setCards(cards)
       setMovies(filterMoviesByQuery(cards, query, isChecked))
-      console.log(cards)
+      // console.log(cards)
       setIsConected(true)
     })
     .catch(err => {
