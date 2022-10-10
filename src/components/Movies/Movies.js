@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -11,34 +11,57 @@ const Movies = () => {
   const spanClass = 'movie-card__btn-span';
   const buttonClass = 'movie-card__btn-active';
 
+  
+
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
-  const [currentQuery, setCurrentQuery] = useState(query);
   const [movies, setMovies] = useState([]);
-  const [cards, setCards] = useState([]);
+  const [isConected, setIsConected] = useState(null);
 
 
-  const [isChecked, setIsCheked] = useState(false);
+  const [isChecked, setIsCheked] = useState('');
 
-  useEffect(() => {
-    setLoading(true);
-    moviesApi.getCards()
-    .then((cards) => {
-      setCards(cards)
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    .finally(() => {
-      setLoading(false);
-  });
-  }, [currentQuery])
+
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   moviesApi.getCards()
+  //   .then((cards) => {
+  //     setCards(cards)
+  //     console.log(cards)
+  //     setIsConected(true)
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     setIsConected(false)
+  //   })
+  //   .finally(() => {
+  //     setLoading(false);
+  // });
+  // }, [currentQuery])
 
 
   function handleSubmit(e) {
     e.preventDefault();
-    setMovies(filterMoviesByQuery(cards, query, isChecked))
-    setCurrentQuery(query);
+
+    setLoading(true);
+    moviesApi.getCards()
+    .then((cards) => {
+      // setCards(cards)
+      setMovies(filterMoviesByQuery(cards, query, isChecked))
+      console.log(cards)
+      setIsConected(true)
+    })
+    .catch(err => {
+      console.log(err);
+      setIsConected(false)
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+
+    // setMovies(filterMoviesByQuery(cards, query, isChecked))
+
   }
 
   function handleChange(e) {
@@ -52,6 +75,7 @@ const Movies = () => {
     }
 
     const filterShortMovies = (movie) => {
+
       return movie.duration <= 40;
     }
 
@@ -62,9 +86,6 @@ const Movies = () => {
     }
     
   }
-
-  // console.log(isChecked);
-
 
   return(
     <>
@@ -98,9 +119,7 @@ const Movies = () => {
           </div>
           <span className='movies__span'></span>
 
-          {loading ? <Preloader/> : 
-          <MoviesCardList spanClass={spanClass} buttonClass={buttonClass} cards={movies}/>
-          }
+          {loading ? <Preloader/> : <MoviesCardList spanClass={spanClass} buttonClass={buttonClass} cards={movies} isConected={isConected}/>}
         </main>
       <Footer/>
     </>

@@ -1,20 +1,27 @@
 import { useEffect, useState } from 'react';
+import moviesApi from './MoviesApi';
 
-export const useApi = (fetcher) => {
-    const [data, setData] = useState(null);
+export const useApi = () => {
+    const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isConected, setIsConected] = useState('')
 
-    useEffect(() => {
-        setLoading(true);
+  useEffect(() => {
+    setLoading(true);
+    moviesApi.getCards()
+    .then((cards) => {
+      setCards(cards)
+      console.log(cards)
+      setIsConected(true)
+    })
+    .catch(err => {
+      console.log(err);
+      setIsConected(false)
+    })
+    .finally(() => {
+      setLoading(false);
+  });
+  }, [])
 
-        fetcher()
-            .then((response) => {
-                setData(response);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [fetcher]);
-
-    return { data, loading };
+    return { cards, loading, isConected };
 };
