@@ -1,6 +1,5 @@
 import './Register.css'
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/hooks/useFormValodation';
 
 const Register = ({ handleRegister }) => {
@@ -30,7 +29,7 @@ const Register = ({ handleRegister }) => {
                 className="register__input" 
                 required
                 onChange={formValues.handleChange}
-                value = {formValues.values.name}
+                value = {formValues.values.name || ""}
                 minLength = {2}
                 maxLength = {30}
               />
@@ -44,7 +43,7 @@ const Register = ({ handleRegister }) => {
                 className="register__input" 
                 required 
                 onChange={formValues.handleChange}
-                value = {formValues.values.email}
+                value = {formValues.values.email || ""}
               />
               <span className="register__input-error">{formValues.errors.email}</span>
             </label>
@@ -56,7 +55,7 @@ const Register = ({ handleRegister }) => {
                 className="register__input" 
                 required 
                 onChange={formValues.handleChange}
-                value = {formValues.values.password}
+                value = {formValues.values.password || ""}
               />
               <span className="register__input-error">{formValues.errors.password}</span>
             </label>

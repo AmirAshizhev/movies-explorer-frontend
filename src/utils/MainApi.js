@@ -32,20 +32,20 @@ constructor(options) {
     .then(this._checkResponse)
   }
 
-  getUserInformation(){
+  getUser(){
     return fetch(`${this._url}/users/me`, {
       headers: this._headers
     })
     .then(this._checkResponse);
   }
 
-  setUserInformation(data){
+  setUserInformation({ name, email}){
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        about: data.about
+        name: name,
+        email: email
       })
     })
 
@@ -60,6 +60,16 @@ constructor(options) {
     };
   }
 
+  getContent (token) {
+    return fetch(`${this._url}/users/me`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization" : `Bearer ${token}`
+      } 
+   })
+   .then(this._checkResponse);
+  }
 }
 
 const mainApi = new MainApi({

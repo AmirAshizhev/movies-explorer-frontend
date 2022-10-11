@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-// import { useState, useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import Main from '../Main/Main';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Movies from '../Movies/Movies';
@@ -9,68 +9,128 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import mainApi from '../../utils/MainApi';
-import { useState } from 'react';
-// import moviesApi from '../../utils/MoviesApi';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { storage } from '../../utils/helpers';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+
 
 function App() {
 
   const navigate = useNavigate();
-  const [userData, setUserData]= useState('')
-  // const [cards, setCards] = useState([]);
+  
+  const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  // useEffect(() => {
-  //   moviesApi.getCards()
-  //   .then((cards) => {
-  //     setCards(cards)
-  //     console.log(cards)
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-  // }, [])
+  useEffect(()=>{
+    tokenCheck();
+  },[])
+
+  useEffect(()=>{
+    // console.log(loggedIn)
+    if(loggedIn){
+      mainApi.getUser()
+      .then((res) => {
+        // console.log(res.data)
+        setCurrentUser({name: res.data.name, email: res.data.email})
+      })
+      .catch(err => console.log(err))
+    }
+
+  },[loggedIn])
 
 
-  function handleRegister({ name, email, password }){
+
+  function handleRegister( {name, email, password} ){
     mainApi.registrateUser( name, email, password )
     .then((data)=>{
-      console.log(data)
+      // console.log(data)
+      handleLogin( {email: email, password: password} )
       navigate("/signin")
     })
+    .catch(err => console.log(err))
   }
 
-  function handleLogin({ email, password }){
+  function handleLogin( {email, password} ){
     mainApi.loginUser(email, password )
     .then((data)=>{
-      console.log(data)
-      localStorage.setItem('token', data.token);
+      // console.log(data)
+      storage.setItem('token', data.token);
       mainApi.setToken(data.token)
-      // setLoggedIn(true)
+      // setCurrentUser()
+      setLoggedIn(true)
       navigate("/movies")
 
     }) 
+    .catch(err => console.log(err))
+  }
 
+  function handleLogout() {
+    // localStorage.removeItem('token');
+    storage.clear()
+    setLoggedIn(false)
+    navigate("/")
+  }
+
+  function handleUpdateUser (data){
+    mainApi.setUserInformation(data)
+    .then((res) => {
+      setCurrentUser(res.data);
+    })
+    .catch(res => console.log(res));
+  } 
+
+  function tokenCheck() {
+    let token = storage.getItem('token');
+    // console.log(token)
+    if (token){
+      mainApi.getContent(token)
+      .then((res) =>{
+        console.log(res.data.name)
+        if(res.data.email){
+          setLoggedIn(true)
+          setCurrentUser({name: res.data.name, email: res.data.email})
+          navigate("/movies")
+        }
+      })
+    }
   }
 
   return (
     <div className="App">
-      <Routes>
-        <Route path='/' element={<Main/>}/>
-        <Route path='/movies' element={
-          <Movies
-            // cards={cards}
-          />}
-        />
-        <Route path='/saved-movies' element={<SavedMovies/>}/>
-        <Route path='/profile' element={<Profile/>}/>
-        <Route path='/signin' element={
-          <Login handleLogin={handleLogin} />}
-        />
-        <Route path='/signup' element={
-          <Register handleRegister={handleRegister}/>}
-        />
-        <Route path='/popup' element={<h1>Popup</h1>}/>
-        <Route path='/*' element={<PageNotFound/>}/>
-      </Routes>
+      <CurrentUserContext.Provider value={currentUser}>
+        <Routes>
+          <Route path='/' element={<Main/>}/>
+          <Route path='/movies' element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Movies
+              />
+            </ProtectedRoute>
+            }
+          />
+          <Route path='/saved-movies' element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <SavedMovies/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/profile' element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Profile 
+                handleLogout={handleLogout} 
+                handleUpdateUser={handleUpdateUser}
+              />
+            </ProtectedRoute>         
+          }/>
+          <Route path='/signin' element={
+            <Login handleLogin={handleLogin} />}
+          />
+          <Route path='/signup' element={
+            <Register handleRegister={handleRegister}/>}
+          />
+          <Route path='/popup' element={<h1>Popup</h1>}/>
+          <Route path='/*' element={<PageNotFound/>}/>
+        </Routes>
+      </CurrentUserContext.Provider>
+
     </div>
   );
 }

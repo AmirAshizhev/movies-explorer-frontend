@@ -1,6 +1,5 @@
 import './Login.css'
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/hooks/useFormValodation';
 
 const Login = ({handleLogin}) => {
@@ -28,7 +27,7 @@ const Login = ({handleLogin}) => {
                 type="email"  
                 name="email" 
                 onChange={formValues.handleChange}
-                value = {formValues.values.email}
+                value = {formValues.values.email || ""}
                 className="register__input" 
                 required 
               />
@@ -40,7 +39,7 @@ const Login = ({handleLogin}) => {
                 type="password"  
                 name="password" 
                 onChange={formValues.handleChange}
-                value = {formValues.values.password}
+                value = {formValues.values.password || ""}
                 className="register__input" 
                 required 
               />
