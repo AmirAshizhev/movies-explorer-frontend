@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -6,6 +6,8 @@ import Preloader from '../Preloader/Preloader';
 import './Movies.css'
 import moviesApi from '../../utils/MoviesApi';
 import useWindowSize from '../../utils/hooks/useWindow';
+import { storage } from '../../utils/helpers';
+// import { useLocation } from 'react-router-dom';
 
 const Movies = () => {
   const loggedIn = false;
@@ -15,15 +17,37 @@ const Movies = () => {
   
 
   const [loading, setLoading] = useState(false);
-  const [query, setQuery] = useState('');
-  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState(storage.getItem('searchedInput') ? storage.getItem('searchedInput') : '');
+  const [movies, setMovies] = useState(storage.getItem('searchedCards') ? storage.getItem('searchedCards') : []);
   const [isConected, setIsConected] = useState(null);
 
 
-  const [isChecked, setIsCheked] = useState(false);
+  const [isChecked, setIsCheked] = useState(storage.getItem('searchedCheckbox') ? storage.getItem('searchedCheckbox') : false);
   const { width } = useWindowSize();
+  // const location = useLocation();
+
+  // console.log(location.key)
+  // console.log(storage.getItem('location'))
+
+  // // console.log(storage.getItem('searchedInput'))
 
 
+
+  // useEffect(()=>{
+  //   if(storage.getItem('location')){
+  //     if(location.key === storage.getItem('location').key) {
+  //       storage.clear()
+  //     }
+  //   }
+      
+  // })
+  
+  useEffect(()=>{
+    storage.setItem('searchedCards', movies)
+    // storage.setItem('location', location);
+    // storage.setItem('searchedInput', query);
+
+  }, [movies])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,6 +57,10 @@ const Movies = () => {
     .then((cards) => {
       setMovies(filterMoviesByQuery(cards, query, isChecked))
       setIsConected(true)
+      // console.log(movies)
+      // storage.setItem('searchedCards', movies)
+      storage.setItem('searchedInput', query);
+      storage.setItem('searchedCheckbox', isChecked);
     })
     .catch(err => {
       console.log(err);
@@ -41,7 +69,6 @@ const Movies = () => {
     .finally(() => {
       setLoading(false);
     });
-
   }
 
   function handleChange(e) {
@@ -49,13 +76,11 @@ const Movies = () => {
   }
 
   function filterMoviesByQuery(movies, query, isChecked) {
-
     const filterMovie = (movie) => {
       return movie.nameRU.toLowerCase().includes(query.toLowerCase())
     }
 
     const filterShortMovies = (movie) => {
-
       return movie.duration <= 40;
     }
 
@@ -64,7 +89,6 @@ const Movies = () => {
     } else {
       return movies.filter(filterMovie)
     }
-    
   }
 
   return(
@@ -78,6 +102,7 @@ const Movies = () => {
                 placeholder='Фильмы' 
                 required 
                 onChange={handleChange}
+                value={query}
               >
               </input>
               <button type='submit' className='movies__search-btn'></button>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+// import { storage } from '../../utils/helpers';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css'
 
@@ -10,6 +11,13 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width}) => 
 
   // let { innerWidth: width} = window;
   // console.log(width)
+
+  // useEffect(()=>{
+  //   storage.setItem('searchedCards', cardsToRender)
+  //   // storage.setItem('location', location);
+  //   // storage.setItem('searchedInput', query);
+
+  // }, [cardsToRender])
 
   useEffect(() => {
     if(width >= 1280) {
@@ -30,18 +38,11 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width}) => 
         setNoMoreMovies(true)
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cards])
 
 
 
-//  useEffect(()=>{
-//   // let { innerWidth: width} = window;
-//   // setWidth(window.innerWidth)
-//   console.log(window.innerWidth)
-//   }, []) 
-
-
-  // cardsToRender = cards.slice(0, 12)
   const cardsElements = cardsToRender.map((card) => (
     <MoviesCard
       {...card}
@@ -63,6 +64,10 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width}) => 
   }
 
   function handleBtnClick () {
+    // console.log(storage.getItem('searchedInput'))
+    // console.log(storage.getItem('searchedCards'))
+    // console.log(storage.getItem('searchedCheckbox'))
+    
 
     if(width >= 1280) {
       setCardsToRender(cardsToRender.concat(cards.slice(cardsToRender.length, cardsToRender.length+3)))
@@ -76,6 +81,7 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width}) => 
         setNoMoreMovies(true)
       }
     }
+
 
     // setCardsToRender(cardsToRender.concat(cards.slice(cardsToRender.length, cardsToRender.length+3)))
     // if (cardsToRender.length+3 >= cards.length) {
