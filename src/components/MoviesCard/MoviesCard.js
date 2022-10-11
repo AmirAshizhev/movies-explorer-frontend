@@ -1,8 +1,24 @@
+import { useState } from 'react';
 import './MoviesCard.css';
 
-const MoviesCard = ({ nameRU, image, spanClass, duration, buttonClass, trailerLink }) => {
+const MoviesCard = ({ nameRU, image, duration, buttonClass, trailerLink }) => {
 
+  const[isLiked, setIsliked] = useState(false)
   const imageBaseUrl = "https://api.nomoreparties.co/"
+
+  const spanClass = (
+    !isLiked ? '' : 'movie-card__btn-span'
+  );
+
+  const cardLikeButtonClassName = (
+    `movie-card__btn ${isLiked ? 'movie-card__btn-active' : ''}`
+  );
+
+
+  function handleLikeClick() {
+    setIsliked(!isLiked)
+  }
+  
 
   let img = imageBaseUrl + image.url;
   return(
@@ -13,7 +29,7 @@ const MoviesCard = ({ nameRU, image, spanClass, duration, buttonClass, trailerLi
         <img src={img} alt={nameRU} className='movie-card__img'/>
       </a>
 
-      <button type='button' className={`movie-card__btn ${buttonClass}`}>
+      <button type='button' className={cardLikeButtonClassName} onClick={handleLikeClick}>
         <span className={spanClass}>
           Сохранить
         </span>
