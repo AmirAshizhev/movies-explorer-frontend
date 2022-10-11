@@ -2,24 +2,43 @@ import { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css'
 
-const MoviesCardList = ({ spanClass, buttonClass, cards, isConected}) => {
+const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width}) => {
 
   const [cardsToRender, setCardsToRender] = useState([]);
-  const [noMoreMovies, setNoMoreMovies] = useState(false)
+  const [noMoreMovies, setNoMoreMovies] = useState(false);
+  // const [width, setWidth] = useState(window.innerWidth)
 
   // let { innerWidth: width} = window;
   // console.log(width)
 
-  //фильтруем карты (12 шт)
-  //добавляем еще 3 карты при нажатии на еще 
   useEffect(() => {
-
-
-    setCardsToRender(cards.slice(0, 12))
-    if (cards.length <= 12) {
-      setNoMoreMovies(true)
+    if(width >= 1280) {
+      setCardsToRender(cards.slice(0, 12))
+      if (cards.length <= 12) {
+        setNoMoreMovies(true)
+      }
+    }
+    else if(width >= 768 & width < 1280) {
+      setCardsToRender(cards.slice(0, 8))
+      if (cards.length <= 8) {
+        setNoMoreMovies(true)
+      }
+    }
+    else if (width < 768) {
+      setCardsToRender(cards.slice(0, 5))
+      if (cards.length <= 5) {
+        setNoMoreMovies(true)
+      }
     }
   }, [cards])
+
+
+
+//  useEffect(()=>{
+//   // let { innerWidth: width} = window;
+//   // setWidth(window.innerWidth)
+//   console.log(window.innerWidth)
+//   }, []) 
 
 
   // cardsToRender = cards.slice(0, 12)
@@ -31,7 +50,7 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected}) => {
     />
   ))
 
-  console.log(cardsToRender);
+  // console.log(cardsToRender);
 
   function conecting(isConected) {
     if (isConected === null) {
@@ -45,11 +64,23 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected}) => {
 
   function handleBtnClick () {
 
-    // setCardsToRender(cardsToRender+3)
-    setCardsToRender(cardsToRender.concat(cards.slice(cardsToRender.length, cardsToRender.length+3)))
-    if (cardsToRender.length+3 >= cards.length) {
-      setNoMoreMovies(true)
+    if(width >= 1280) {
+      setCardsToRender(cardsToRender.concat(cards.slice(cardsToRender.length, cardsToRender.length+3)))
+      if (cardsToRender.length+3 >= cards.length) {
+        setNoMoreMovies(true)
+      }
     }
+    else if(width < 1280) {
+      setCardsToRender(cardsToRender.concat(cards.slice(cardsToRender.length, cardsToRender.length+2)))
+      if (cardsToRender.length+2 >= cards.length) {
+        setNoMoreMovies(true)
+      }
+    }
+
+    // setCardsToRender(cardsToRender.concat(cards.slice(cardsToRender.length, cardsToRender.length+3)))
+    // if (cardsToRender.length+3 >= cards.length) {
+    //   setNoMoreMovies(true)
+    // }
   }
 
   return(

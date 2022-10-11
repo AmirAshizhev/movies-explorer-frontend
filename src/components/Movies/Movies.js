@@ -5,6 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import './Movies.css'
 import moviesApi from '../../utils/MoviesApi';
+import useWindowSize from '../../utils/hooks/useWindow';
 
 const Movies = () => {
   const loggedIn = false;
@@ -19,26 +20,9 @@ const Movies = () => {
   const [isConected, setIsConected] = useState(null);
 
 
-  const [isChecked, setIsCheked] = useState('');
+  const [isChecked, setIsCheked] = useState(false);
+  const { width } = useWindowSize();
 
-
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   moviesApi.getCards()
-  //   .then((cards) => {
-  //     setCards(cards)
-  //     console.log(cards)
-  //     setIsConected(true)
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //     setIsConected(false)
-  //   })
-  //   .finally(() => {
-  //     setLoading(false);
-  // });
-  // }, [currentQuery])
 
 
   function handleSubmit(e) {
@@ -47,9 +31,7 @@ const Movies = () => {
     setLoading(true);
     moviesApi.getCards()
     .then((cards) => {
-      // setCards(cards)
       setMovies(filterMoviesByQuery(cards, query, isChecked))
-      // console.log(cards)
       setIsConected(true)
     })
     .catch(err => {
@@ -59,8 +41,6 @@ const Movies = () => {
     .finally(() => {
       setLoading(false);
     });
-
-    // setMovies(filterMoviesByQuery(cards, query, isChecked))
 
   }
 
@@ -119,7 +99,15 @@ const Movies = () => {
           </div>
           <span className='movies__span'></span>
 
-          {loading ? <Preloader/> : <MoviesCardList spanClass={spanClass} buttonClass={buttonClass} cards={movies} isConected={isConected}/>}
+          {loading ? 
+          <Preloader/> : 
+          <MoviesCardList 
+            spanClass={spanClass} 
+            buttonClass={buttonClass} 
+            cards={movies} 
+            isConected={isConected} 
+            width={width}
+          />}
         </main>
       <Footer/>
     </>
