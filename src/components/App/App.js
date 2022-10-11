@@ -99,17 +99,20 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path='/' element={<Main/>}/>
+          <Route path='/' element={<Main loggedIn={loggedIn}/>}/>
           <Route path='/movies' element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Movies
+                loggedIn={loggedIn}
               />
             </ProtectedRoute>
             }
           />
           <Route path='/saved-movies' element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <SavedMovies/>
+              <SavedMovies
+                loggedIn={loggedIn}
+              />
             </ProtectedRoute>
           }/>
           <Route path='/profile' element={
@@ -117,6 +120,7 @@ function App() {
               <Profile 
                 handleLogout={handleLogout} 
                 handleUpdateUser={handleUpdateUser}
+                loggedIn={loggedIn}
               />
             </ProtectedRoute>         
           }/>

@@ -4,7 +4,7 @@ import './Profile.css'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../utils/hooks/useFormValodation';
 
-const Profile = ({handleLogout, handleUpdateUser}) => {
+const Profile = ({handleLogout, handleUpdateUser, loggedIn}) => {
   const currentUser = React.useContext(CurrentUserContext);
   const formValues = useFormWithValidation();
   
@@ -53,7 +53,7 @@ const Profile = ({handleLogout, handleUpdateUser}) => {
 
   return(
     <>
-      <Header/>
+      <Header loggedIn={loggedIn} activePage='account'/>
       <main>
 
         {isEditProfile ?

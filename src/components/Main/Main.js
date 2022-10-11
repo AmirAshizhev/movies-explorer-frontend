@@ -6,9 +6,8 @@ import Portfolio from "../Portfolio/Portfolio"
 import Promo from "../Promo/Promo"
 import Techs from "../Techs/Techs"
 
-const Main = () => {
+const Main = ({loggedIn}) => {
 
-  const loggedIn = true;
   const headerClassName = 'header_pink'
   return( 
     <>        

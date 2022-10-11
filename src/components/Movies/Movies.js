@@ -9,8 +9,8 @@ import useWindowSize from '../../utils/hooks/useWindow';
 import { storage } from '../../utils/helpers';
 // import { useLocation } from 'react-router-dom';
 
-const Movies = () => {
-  const loggedIn = false;
+const Movies = ({loggedIn}) => {
+  
   const spanClass = 'movie-card__btn-span';
   const buttonClass = 'movie-card__btn-active';
 
@@ -93,7 +93,7 @@ const Movies = () => {
 
   return(
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header loggedIn={loggedIn} activePage='movies'/>
         <main>
           <div className='movies__search'>
             <form className='movies__form' onSubmit={handleSubmit}>

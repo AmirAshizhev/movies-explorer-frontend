@@ -3,14 +3,13 @@ import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import '../Movies/Movies.css'
 
-const SavedMovies = () => {
-  const loggedIn = false;
+const SavedMovies = ({loggedIn}) => {
   const spanClass = 'movie-card__btn-span';
   const buttonClass = 'movie-card__btn-delete';
 
   return(
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header loggedIn={loggedIn} activePage='saved-movies'/>
         <main>
           <div className='movies__search'>
             <form className='movies__form'>
