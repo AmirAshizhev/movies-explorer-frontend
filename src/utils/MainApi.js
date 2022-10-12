@@ -70,6 +70,32 @@ constructor(options) {
    })
    .then(this._checkResponse);
   }
+
+  getSavedMovie() {
+    return fetch(`${this._url}/movies`, {
+      headers: this._headers
+    })
+    .then(this._checkResponse);
+  }
+
+  saveMovie(data) {
+    return fetch(`${this._url}/movies`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+
+    })
+    .then(this._checkResponse);
+  }
+
+  deleteMovie(movieId) {
+    return fetch(`${this._url}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(this._checkResponse);
+  }
+
 }
 
 const mainApi = new MainApi({

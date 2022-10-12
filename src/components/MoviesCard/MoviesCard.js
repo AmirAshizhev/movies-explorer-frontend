@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './MoviesCard.css';
 
-const MoviesCard = ({ nameRU, image, duration, buttonClass, trailerLink }) => {
+const MoviesCard = ({ nameRU, image, duration, buttonClass, trailerLink, activePage, handleAddMovie, handleDeleteMovie, card}) => {
 
   const[isLiked, setIsliked] = useState(false)
   const imageBaseUrl = "https://api.nomoreparties.co/"
@@ -17,6 +17,13 @@ const MoviesCard = ({ nameRU, image, duration, buttonClass, trailerLink }) => {
 
   function handleLikeClick() {
     setIsliked(!isLiked)
+
+    handleAddMovie(card)
+  }
+
+  function handleDeleteClick() {
+    handleDeleteMovie()
+
   }
   
 
@@ -29,8 +36,11 @@ const MoviesCard = ({ nameRU, image, duration, buttonClass, trailerLink }) => {
         <img src={img} alt={nameRU} className='movie-card__img'/>
       </a>
 
-      <button type='button' className={cardLikeButtonClassName} onClick={handleLikeClick}>
-        <span className={spanClass}>
+      <button 
+        type='button' 
+        className= {`movie-card__btn ${activePage === 'movies' ? cardLikeButtonClassName : buttonClass}`} 
+        onClick={activePage === 'saved-movies' ? handleDeleteClick : handleLikeClick}>
+        <span className={activePage === 'saved-movies' ? 'movie-card__btn-span' : spanClass}>
           Сохранить
         </span>
       </button>

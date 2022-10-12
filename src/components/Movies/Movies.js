@@ -7,6 +7,7 @@ import './Movies.css'
 import moviesApi from '../../utils/MoviesApi';
 import useWindowSize from '../../utils/hooks/useWindow';
 import { storage } from '../../utils/helpers';
+import mainApi from '../../utils/MainApi';
 // import { useLocation } from 'react-router-dom';
 
 const Movies = ({loggedIn}) => {
@@ -24,29 +25,10 @@ const Movies = ({loggedIn}) => {
 
   const [isChecked, setIsCheked] = useState(storage.getItem('searchedCheckbox') ? storage.getItem('searchedCheckbox') : false);
   const { width } = useWindowSize();
-  // const location = useLocation();
 
-  // console.log(location.key)
-  // console.log(storage.getItem('location'))
-
-  // // console.log(storage.getItem('searchedInput'))
-
-
-
-  // useEffect(()=>{
-  //   if(storage.getItem('location')){
-  //     if(location.key === storage.getItem('location').key) {
-  //       storage.clear()
-  //     }
-  //   }
-      
-  // })
   
   useEffect(()=>{
     storage.setItem('searchedCards', movies)
-    // storage.setItem('location', location);
-    // storage.setItem('searchedInput', query);
-
   }, [movies])
 
   function handleSubmit(e) {
@@ -57,8 +39,6 @@ const Movies = ({loggedIn}) => {
     .then((cards) => {
       setMovies(filterMoviesByQuery(cards, query, isChecked))
       setIsConected(true)
-      // console.log(movies)
-      // storage.setItem('searchedCards', movies)
       storage.setItem('searchedInput', query);
       storage.setItem('searchedCheckbox', isChecked);
     })
@@ -90,6 +70,18 @@ const Movies = ({loggedIn}) => {
       return movies.filter(filterMovie)
     }
   }
+
+  function handleAddMovie(card){
+    mainApi.saveMovie(card)
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+
 
   return(
     <>
@@ -132,6 +124,9 @@ const Movies = ({loggedIn}) => {
             cards={movies} 
             isConected={isConected} 
             width={width}
+            activePage='movies'
+            handleAddMovie={handleAddMovie}
+
           />}
         </main>
       <Footer/>

@@ -95,6 +95,11 @@ function App() {
     }
   }
 
+
+  function handleDeleteMovie() {
+    console.log('saved-movies')
+  }
+
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
@@ -112,6 +117,7 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
                 loggedIn={loggedIn}
+                handleDeleteMovie={handleDeleteMovie}
               />
             </ProtectedRoute>
           }/>

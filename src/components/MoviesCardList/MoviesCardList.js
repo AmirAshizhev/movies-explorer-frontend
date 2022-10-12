@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css'
 
-const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width}) => {
+const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width, activePage, handleAddMovie, handleDeleteMovie}) => {
 
   const [cardsToRender, setCardsToRender] = useState([]);
   const [noMoreMovies, setNoMoreMovies] = useState(false);
@@ -42,12 +42,18 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width}) => 
   }, [cards])
 
 
+  
 
   const cardsElements = cardsToRender.map((card) => (
     <MoviesCard
       {...card}
       card={card}
       key={card.id}
+      buttonClass={buttonClass}
+      activePage={activePage}
+      spanClass={spanClass}
+      handleAddMovie={handleAddMovie}
+      handleDeleteMovie={handleDeleteMovie}
     />
   ))
 
