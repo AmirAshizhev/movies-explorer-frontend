@@ -6,7 +6,7 @@ import Preloader from '../Preloader/Preloader';
 import './Movies.css'
 import moviesApi from '../../utils/MoviesApi';
 import useWindowSize from '../../utils/hooks/useWindow';
-import { storage } from '../../utils/helpers';
+import { changingMovieData, storage } from '../../utils/helpers';
 import mainApi from '../../utils/MainApi';
 // import { useLocation } from 'react-router-dom';
 
@@ -31,13 +31,19 @@ const Movies = ({loggedIn}) => {
     storage.setItem('searchedCards', movies)
   }, [movies])
 
+  useEffect(()=>{
+    setMovies(filterMoviesByQuery(movies, query, isChecked))
+  },[isChecked])
+
+  console.log(isChecked)
+
   function handleSubmit(e) {
     e.preventDefault();
 
     setLoading(true);
     moviesApi.getCards()
     .then((cards) => {
-      setMovies(filterMoviesByQuery(cards, query, isChecked))
+      setMovies(filterMoviesByQuery(changingMovieData(cards), query, isChecked))
       setIsConected(true)
       storage.setItem('searchedInput', query);
       storage.setItem('searchedCheckbox', isChecked);
@@ -81,8 +87,6 @@ const Movies = ({loggedIn}) => {
     })
   }
 
-
-
   return(
     <>
       <Header loggedIn={loggedIn} activePage='movies'/>
@@ -107,6 +111,7 @@ const Movies = ({loggedIn}) => {
                   type='checkbox'
                   checked={isChecked}
                   onChange={() => setIsCheked(!isChecked)}
+                  // onChange={handleCheckBox}
                 >
                 </input>
                 <span className='movies__checkbox-span movies__checkbox-span-visible'></span>

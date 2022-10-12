@@ -26,20 +26,14 @@ const Profile = ({handleLogout, handleUpdateUser, loggedIn}) => {
 
   function handleEditSubmit(e) {
     e.preventDefault();
-    // handleLogin(formValues.values)
     setIsEditProfile(false)
   }
 
   function handleSaveSubmit(e) {
     e.preventDefault();
-    // handleLogin(formValues.values)
+    console.log(formValues)
     setIsEditProfile(true)
-    // setName(formValues.values.name)
-    // setEmail(formValues.values.email);
-
     handleUpdateUser({name: formValues.values.name, email: formValues.values.email})
-
-    // console.log(currentUser)
   }
 
 
@@ -102,7 +96,7 @@ const Profile = ({handleLogout, handleUpdateUser, loggedIn}) => {
             </input>
             <span className='profile__error-edit'>{formValues.errors.email}</span>
           </label>
-          <button type='submit' className='profile__btn' onClick={handleSaveSubmit}>Сохранить</button>
+          <button type='submit' className='profile__btn-save' disabled={!formValues.isValid} onClick={handleSaveSubmit}>Сохранить</button>
         </form>}           
       </main>
 

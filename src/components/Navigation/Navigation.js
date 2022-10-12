@@ -19,7 +19,7 @@ const Navigation = ({ loggedIn, activePage }) => {
         </> : 
         <>
         <div className="navigation">
-          <div className="navigation_logged-in">
+          <div className={'navigation_logged-in navigation-popup_opened'}>
             <Link 
               className={`navigation__link-item ${activePage === 'movies' ? 'navigation__link-item_bold' : ''}`}
               to='/movies'

@@ -7,7 +7,7 @@ import mainApi from '../../utils/MainApi';
 import useWindowSize from '../../utils/hooks/useWindow';
 import { storage } from '../../utils/helpers';
 
-const SavedMovies = ({loggedIn, handleDeleteMovie}) => {
+const SavedMovies = ({loggedIn}) => {
   const [isConected, setIsConected] = useState(null);
   const [isChecked, setIsCheked] = useState(false);
   const { width } = useWindowSize();
@@ -21,8 +21,9 @@ const SavedMovies = ({loggedIn, handleDeleteMovie}) => {
     }
     mainApi.getSavedMovie()
     .then((res)=>{
-      console.log(res.data)
-      setMovies(res.data)
+      // console.log(res.data)
+      // setMovies(res.data)
+      setMovies(filterMoviesByQuery(res.data, query, isChecked))
       setIsConected(true)
     })
     .catch(err => {
@@ -31,9 +32,34 @@ const SavedMovies = ({loggedIn, handleDeleteMovie}) => {
     })
   }, [])
 
+  function filterMoviesByQuery(movies, query, isChecked) {
+    const filterMovie = (movie) => {
+      return movie.nameRU.toLowerCase().includes(query.toLowerCase())
+    }
+
+    const filterShortMovies = (movie) => {
+      return movie.duration <= 40;
+    }
+
+    if (isChecked) {
+      return movies.filter(filterShortMovies).filter(filterMovie)
+    } else {
+      return movies.filter(filterMovie)
+    }
+  }
 
   function handleChange(e) {
     setQuery(e.target.value)
+  }
+
+  function handleDeleteMovie(movie) {
+    mainApi.deleteMovie(movie._id)
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
 

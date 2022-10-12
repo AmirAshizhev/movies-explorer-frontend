@@ -53,7 +53,7 @@ function App() {
   function handleLogin( {email, password} ){
     mainApi.loginUser(email, password )
     .then((data)=>{
-      // console.log(data)
+      console.log(data)
       storage.setItem('token', data.token);
       mainApi.setToken(data.token)
       // setCurrentUser()
@@ -81,7 +81,7 @@ function App() {
 
   function tokenCheck() {
     let token = storage.getItem('token');
-    // console.log(token)
+    console.log(token)
     if (token){
       mainApi.getContent(token)
       .then((res) =>{
@@ -95,10 +95,17 @@ function App() {
     }
   }
 
+  console.log(currentUser)
 
-  function handleDeleteMovie() {
-    console.log('saved-movies')
-  }
+  // function handleDeleteMovie(movie) {
+  //   mainApi.deleteMovie(movie._id)
+  //   .then((res)=>{
+  //     console.log(res)
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // }
 
   return (
     <div className="App">
@@ -117,7 +124,7 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
                 loggedIn={loggedIn}
-                handleDeleteMovie={handleDeleteMovie}
+                // handleDeleteMovie={handleDeleteMovie}
               />
             </ProtectedRoute>
           }/>

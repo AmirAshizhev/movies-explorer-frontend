@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { changingMovieData } from '../../utils/helpers';
 // import { storage } from '../../utils/helpers';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css'
@@ -40,7 +41,6 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width, acti
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cards])
-
 
   
 
