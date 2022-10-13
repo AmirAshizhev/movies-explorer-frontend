@@ -4,11 +4,10 @@ import './Profile.css'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../utils/hooks/useFormValodation';
 
-const Profile = ({handleLogout, handleUpdateUser, loggedIn}) => {
+const Profile = ({handleLogout, handleUpdateUser, loggedIn, error}) => {
   const currentUser = React.useContext(CurrentUserContext);
   const formValues = useFormWithValidation();
   
-  // console.log(currentUser)
   const [name, setName] = useState(currentUser.name)
   const [email, setEmail] = useState(currentUser.email)
   const [isEditProfile, setIsEditProfile] = useState(true)
@@ -23,7 +22,6 @@ const Profile = ({handleLogout, handleUpdateUser, loggedIn}) => {
   },[])
 
   
-
   function handleEditSubmit(e) {
     e.preventDefault();
     setIsEditProfile(false)
@@ -41,8 +39,6 @@ const Profile = ({handleLogout, handleUpdateUser, loggedIn}) => {
     setIsEditProfile(true)
     handleLogout()
   }
-
-
 
 
   return(
@@ -96,6 +92,7 @@ const Profile = ({handleLogout, handleUpdateUser, loggedIn}) => {
             </input>
             <span className='profile__error-edit'>{formValues.errors.email}</span>
           </label>
+          <span>{error}</span>
           <button type='submit' className='profile__btn-save' disabled={!formValues.isValid} onClick={handleSaveSubmit}>Сохранить</button>
         </form>}           
       </main>

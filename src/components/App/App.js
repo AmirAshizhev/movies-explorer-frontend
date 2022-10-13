@@ -21,20 +21,14 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // useEffect(()=>{
-  //   storage.clear();
-  // },[])
-
   useEffect(()=>{
     tokenCheck();
   },[])
 
   useEffect(()=>{
-    // console.log(loggedIn)
     if(loggedIn){
       mainApi.getUser()
       .then((res) => {
-        console.log(res)
         setCurrentUser({name: res.data.name, email: res.data.email, id: res.data.id})
       })
       .catch(err => console.log(err))
@@ -47,7 +41,6 @@ function App() {
   function handleRegister( {name, email, password} ){
     mainApi.registrateUser( name, email, password )
     .then((data)=>{
-      // console.log(data)
       handleLogin( {email: email, password: password} )
       navigate("/signin")
     })
@@ -57,7 +50,6 @@ function App() {
   function handleLogin( {email, password} ){
     mainApi.loginUser(email, password )
     .then((data)=>{
-      // console.log(data)
       storage.setItem('token', data.token);
       mainApi.setToken(data.token)
       // setCurrentUser()
@@ -65,11 +57,12 @@ function App() {
       navigate("/movies")
 
     }) 
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   function handleLogout() {
-    // localStorage.removeItem('token');
     storage.clear()
     setLoggedIn(false)
     navigate("/")
@@ -85,11 +78,9 @@ function App() {
 
   function tokenCheck() {
     let token = storage.getItem('token');
-    console.log(token)
     if (token){
       mainApi.getContent(token)
       .then((res) =>{
-        // console.log(res.data.name)
         if(res.data.email){
           setLoggedIn(true)
           setCurrentUser({name: res.data.name, email: res.data.email})
@@ -100,15 +91,6 @@ function App() {
   }
 
 
-  // function handleDeleteMovie(movie) {
-  //   mainApi.deleteMovie(movie._id)
-  //   .then((res)=>{
-  //     console.log(res)
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   })
-  // }
 
   return (
     <div className="App">

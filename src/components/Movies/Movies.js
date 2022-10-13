@@ -55,7 +55,6 @@ const Movies = ({loggedIn}) => {
     }
     mainApi.getSavedMovie()
     .then((res)=>{
-      // console.log(res.data)
       setAddedMovies(currentUserCards(res.data, currentUser))
     })
     .catch(err => {
@@ -69,7 +68,6 @@ const Movies = ({loggedIn}) => {
     setLoading(true);
     moviesApi.getCards()
     .then((cards) => {
-      // console.log(cards)
       setMovies(filterMoviesByQuery(changingMovieData(cards), query, isChecked))
       setCard(changingMovieData(cards))
       setIsConected(true)
@@ -98,7 +96,6 @@ const Movies = ({loggedIn}) => {
       return mainApi.getSavedMovie()
     })   
     .then((res)=>{
-      // console.log(res.data)
       setAddedMovies(currentUserCards(res.data, currentUser))
     })
     .catch(err => {
@@ -120,7 +117,6 @@ const Movies = ({loggedIn}) => {
       return mainApi.getSavedMovie()
     })   
     .then((res)=>{
-      // console.log(res.data)
       setAddedMovies(currentUserCards(res.data, currentUser))
     })
     .catch(err => {

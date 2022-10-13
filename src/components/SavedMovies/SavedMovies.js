@@ -23,9 +23,6 @@ const SavedMovies = ({loggedIn}) => {
     }
     mainApi.getSavedMovie()
     .then((res)=>{
-      // console.log(res.data)
-      // setMovies(currentUserCards(res.data, currentUser))
-      // setMovies(res.data)
       setMovies(filterMoviesByQuery(currentUserCards(res.data, currentUser), query, isChecked))
       setIsConected(true)
     })
