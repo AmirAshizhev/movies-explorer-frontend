@@ -1,32 +1,60 @@
 import { useState } from 'react';
 import './MoviesCard.css';
 
-const MoviesCard = ({ nameRU, image, duration, buttonClass, trailerLink, activePage, handleAddMovie, handleDeleteMovie, card}) => {
+const MoviesCard = ({ 
+    nameRU,
+    image, 
+    duration, 
+    buttonClass, 
+    trailerLink,
+    activePage, 
+    handleAddMovie, 
+    handleDeleteMovie, 
+    card, 
+    addedMovie
+  }) => {
 
-  const[isLiked, setIsliked] = useState(false)
-  // const imageBaseUrl = "https://api.nomoreparties.co/"
+  // const[isLiked, setIsliked] = useState(addedMovie.length !== 0 ? true : false || 0)
+    //  const [cardLikeButton, setCardLikeButton] = useState('')
 
-  const spanClass = (
-    !isLiked ? '' : 'movie-card__btn-span'
-  );
+    let isLiked = addedMovie.length !== 0 ? true : false
 
-  const cardLikeButtonClassName = (
-    `movie-card__btn ${isLiked ? 'movie-card__btn-active' : ''}`
-  );
 
+    const spanClass = (
+      !isLiked ? '' : 'movie-card__btn-span'
+    );
+
+
+    const cardLikeButtonClassName = (
+      `movie-card__btn ${isLiked ? 'movie-card__btn-active' : ''}`
+      // `movie-card__btn ${isLiked && 'movie-card__btn-active'}`
+    );
+
+
+  
 
   function handleLikeClick() {
-    setIsliked(!isLiked)
 
-    handleAddMovie(card)
+    if (!isLiked){
+      handleAddMovie(card)
+      // setCardLikeButton('movie-card__btn-active')
+    } else if (isLiked) {
+      handleDeleteMovie(addedMovie[0], activePage)
+      // setCardLikeButton('')
+    }
+    // console.log(isLiked)
+    // setIsliked(!isLiked)
+    console.log(isLiked)
+    isLiked = !isLiked
   }
 
   function handleDeleteClick() {
-    handleDeleteMovie(card)
+    handleDeleteMovie(card, activePage)
 
   }
   
-
+  console.log(addedMovie[0])
+  console.log(isLiked)
   // let img = imageBaseUrl + image.url;
   return(
     <li className='movie-card'>

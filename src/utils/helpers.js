@@ -30,3 +30,30 @@ export function changingMovieData(movies) {
 
   return changedMovie
 }
+
+export   function currentUserCards (movies, currentUser) {
+
+  const currentUserCard = (movie) => {
+    if (currentUser.id === movie.owner) {
+      return movie;
+    }
+  }
+
+  return movies.filter((movie, currentUser) => currentUserCard(movie, currentUser))
+}
+
+export   function filterMoviesByQuery(movies, query, isChecked) {
+  const filterMovie = (movie) => {
+    return movie.nameRU.toLowerCase().includes(query.toLowerCase())
+  }
+
+  const filterShortMovies = (movie) => {
+    return movie.duration <= 40;
+  }
+
+  if (isChecked) {
+    return movies.filter(filterShortMovies).filter(filterMovie)
+  } else {
+    return movies.filter(filterMovie)
+  }
+}

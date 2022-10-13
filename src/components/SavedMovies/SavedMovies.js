@@ -2,10 +2,11 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import '../Movies/Movies.css'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import mainApi from '../../utils/MainApi';
 import useWindowSize from '../../utils/hooks/useWindow';
-import { storage } from '../../utils/helpers';
+import { changingMovieData, currentUserCards, filterMoviesByQuery, storage } from '../../utils/helpers';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const SavedMovies = ({loggedIn}) => {
   const [isConected, setIsConected] = useState(null);
@@ -13,6 +14,7 @@ const SavedMovies = ({loggedIn}) => {
   const { width } = useWindowSize();
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
+  const currentUser = React.useContext(CurrentUserContext);
 
   useEffect(()=>{
     let token = storage.getItem('token');
@@ -22,47 +24,34 @@ const SavedMovies = ({loggedIn}) => {
     mainApi.getSavedMovie()
     .then((res)=>{
       // console.log(res.data)
+      // setMovies(currentUserCards(res.data, currentUser))
       // setMovies(res.data)
-      setMovies(filterMoviesByQuery(res.data, query, isChecked))
+      setMovies(filterMoviesByQuery(currentUserCards(res.data, currentUser), query, isChecked))
       setIsConected(true)
     })
     .catch(err => {
       console.log(err);
       setIsConected(false)
     })
-  }, [])
+  }, [isChecked])
 
-  function filterMoviesByQuery(movies, query, isChecked) {
-    const filterMovie = (movie) => {
-      return movie.nameRU.toLowerCase().includes(query.toLowerCase())
-    }
-
-    const filterShortMovies = (movie) => {
-      return movie.duration <= 40;
-    }
-
-    if (isChecked) {
-      return movies.filter(filterShortMovies).filter(filterMovie)
-    } else {
-      return movies.filter(filterMovie)
-    }
-  }
 
   function handleChange(e) {
     setQuery(e.target.value)
   }
 
-  function handleDeleteMovie(movie) {
+
+  function handleDeleteMovie(movie, activePage) {
+    if (activePage === 'saved-movies' ){
     mainApi.deleteMovie(movie._id)
-    .then((res)=>{
-      console.log(res)
-    })
+    .then(() => {setMovies((state) => state.filter((c) => c._id !== movie._id ));})
     .catch(err => {
       console.log(err);
-    })
+    }) 
+  } else if(activePage === 'movies') {
+    mainApi.deleteMovie(movie._id)
   }
-
-
+  }
 
   return(
     <>
@@ -100,6 +89,7 @@ const SavedMovies = ({loggedIn}) => {
             spanClass={'movie-card__btn-span'} 
             buttonClass={'movie-card__btn-delete'}
             cards={movies} 
+            addedMovies={movies}
             isConected={isConected} 
             width={width}
             activePage='saved-movies'

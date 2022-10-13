@@ -21,6 +21,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // useEffect(()=>{
+  //   storage.clear();
+  // },[])
+
   useEffect(()=>{
     tokenCheck();
   },[])
@@ -30,8 +34,8 @@ function App() {
     if(loggedIn){
       mainApi.getUser()
       .then((res) => {
-        // console.log(res.data)
-        setCurrentUser({name: res.data.name, email: res.data.email})
+        console.log(res)
+        setCurrentUser({name: res.data.name, email: res.data.email, id: res.data.id})
       })
       .catch(err => console.log(err))
     }
@@ -53,7 +57,7 @@ function App() {
   function handleLogin( {email, password} ){
     mainApi.loginUser(email, password )
     .then((data)=>{
-      console.log(data)
+      // console.log(data)
       storage.setItem('token', data.token);
       mainApi.setToken(data.token)
       // setCurrentUser()
@@ -85,7 +89,7 @@ function App() {
     if (token){
       mainApi.getContent(token)
       .then((res) =>{
-        console.log(res.data.name)
+        // console.log(res.data.name)
         if(res.data.email){
           setLoggedIn(true)
           setCurrentUser({name: res.data.name, email: res.data.email})
@@ -95,7 +99,6 @@ function App() {
     }
   }
 
-  console.log(currentUser)
 
   // function handleDeleteMovie(movie) {
   //   mainApi.deleteMovie(movie._id)

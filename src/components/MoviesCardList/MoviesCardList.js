@@ -4,10 +4,22 @@ import { changingMovieData } from '../../utils/helpers';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css'
 
-const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width, activePage, handleAddMovie, handleDeleteMovie}) => {
+const MoviesCardList = ({ 
+  spanClass, 
+  buttonClass, 
+  cards, 
+  addedMovies,
+  isConected, 
+  width, 
+  activePage, 
+  handleAddMovie, 
+  handleDeleteMovie, 
+  isChecked}) => {
+    
 
   const [cardsToRender, setCardsToRender] = useState([]);
   const [noMoreMovies, setNoMoreMovies] = useState(false);
+  
   // const [width, setWidth] = useState(window.innerWidth)
 
   // let { innerWidth: width} = window;
@@ -19,30 +31,41 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width, acti
   //   // storage.setItem('searchedInput', query);
 
   // }, [cardsToRender])
+  useEffect(()=>{
+    setNoMoreMovies(false)
+  }, [isChecked])
+
 
   useEffect(() => {
-    if(width >= 1280) {
-      setCardsToRender(cards.slice(0, 12))
-      if (cards.length <= 12) {
-        setNoMoreMovies(true)
+    if (activePage === 'movies'){
+      if(width >= 1280) {
+        setCardsToRender(cards.slice(0, 12))
+        if (cards.length <= 12) {
+          setNoMoreMovies(true)
+        }
       }
-    }
-    else if(width >= 768 & width < 1280) {
-      setCardsToRender(cards.slice(0, 8))
-      if (cards.length <= 8) {
-        setNoMoreMovies(true)
+      else if(width >= 768 & width < 1280) {
+        setCardsToRender(cards.slice(0, 8))
+        if (cards.length <= 8) {
+          setNoMoreMovies(true)
+        }
       }
-    }
-    else if (width < 768) {
-      setCardsToRender(cards.slice(0, 5))
-      if (cards.length <= 5) {
-        setNoMoreMovies(true)
+      else if (width < 768) {
+        setCardsToRender(cards.slice(0, 5))
+        if (cards.length <= 5) {
+          setNoMoreMovies(true)
+        }
       }
+    } else if (activePage === 'saved-movies'){
+      setCardsToRender(cards)
+      setNoMoreMovies(true)
     }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cards])
 
-  
+  console.log(addedMovies)
+  console.log(cardsToRender)
 
   const cardsElements = cardsToRender.map((card) => (
     <MoviesCard
@@ -54,6 +77,7 @@ const MoviesCardList = ({ spanClass, buttonClass, cards, isConected, width, acti
       spanClass={spanClass}
       handleAddMovie={handleAddMovie}
       handleDeleteMovie={handleDeleteMovie}
+      addedMovie={addedMovies.filter((addedMovie) => (addedMovie.movieId === card.movieId))}
     />
   ))
 
