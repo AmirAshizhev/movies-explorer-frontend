@@ -31,7 +31,6 @@ const MoviesCard = ({
       handleDeleteMovie(addedMovie[0], activePage)
     }
 
-    console.log(isLiked)
     isLiked = !isLiked
   }
 
@@ -40,8 +39,6 @@ const MoviesCard = ({
 
   }
   
-  console.log(addedMovie[0])
-  console.log(isLiked)
   return(
     <li className='movie-card'>
       <h3 className='movie-card__title'>{nameRU}</h3>

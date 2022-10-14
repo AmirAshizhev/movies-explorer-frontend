@@ -50,8 +50,6 @@ const MoviesCardList = ({
 
   }, [cards])
 
-  console.log(addedMovies)
-  console.log(cardsToRender)
 
   const cardsElements = cardsToRender.map((card) => (
     <MoviesCard

@@ -29,7 +29,7 @@ const Profile = ({handleLogout, handleUpdateUser, loggedIn, error}) => {
 
   function handleSaveSubmit(e) {
     e.preventDefault();
-    console.log(formValues)
+
     setIsEditProfile(true)
     handleUpdateUser({name: formValues.values.name, email: formValues.values.email})
   }

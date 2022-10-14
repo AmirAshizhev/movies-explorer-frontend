@@ -92,7 +92,6 @@ const Movies = ({loggedIn}) => {
   function handleAddMovie(card){
     mainApi.saveMovie(card)
     .then((res)=>{
-      console.log(res)
       return mainApi.getSavedMovie()
     })   
     .then((res)=>{

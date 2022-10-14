@@ -99,7 +99,7 @@ constructor(options) {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.movies-explorer.amir.nomoredomains.sbs',
+  baseUrl: 'http://localhost:3002',
   headers: {
     'Content-Type': 'application/json'
   }
