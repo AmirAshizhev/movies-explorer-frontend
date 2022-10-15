@@ -10,37 +10,38 @@ import { changingMovieData, currentUserCards, filterMoviesByQuery, storage } fro
 import mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const Movies = ({loggedIn}) => {
+const Movies = ({loggedIn, setInfoTooltipMessage, setIsInfoTooltipOpen}) => {
   
   const spanClass = 'movie-card__btn-span';
   const buttonClass = 'movie-card__btn-active';
   const currentUser = React.useContext(CurrentUserContext);
    
-  const [card, setCard] = useState(storage.getItem('searchedCards') ? storage.getItem('searchedCards') : []);
+
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState(storage.getItem('searchedInput') ? storage.getItem('searchedInput') : '');
   const [movies, setMovies] = useState(storage.getItem('searchedCards') ? storage.getItem('searchedCards') : []);
+  const [card, setCard] = useState(storage.getItem('searchedCards') ? storage.getItem('searchedCards') : []);
   const [isConected, setIsConected] = useState(null);
 
   const [addedMovies, setAddedMovies] = useState([]);
 
-
+  const [moviedataBase, SetMoviedataBase] = useState([]);
 
 
   const [isChecked, setIsCheked] = useState(storage.getItem('searchedCheckbox') ? storage.getItem('searchedCheckbox') : false);
   const { width } = useWindowSize();
 
-  
   useEffect(()=>{
-    storage.setItem('searchedCards', movies)
+    storage.setItem('searchedCards', card)
     storage.setItem('searchedInput', query);
     storage.setItem('searchedCheckbox', isChecked);
-  }, [movies, query, isChecked])
+  }, [card, query, isChecked])
 
   useEffect(()=>{
-    setCard(movies)
+
     if (isChecked){
-      setMovies(filterMoviesByQuery(movies, query, isChecked))
+      setMovies(filterMoviesByQuery(card, query, isChecked))
+      storage.setItem('searchedCards', movies)
     } else if (!isChecked){
       setMovies(card)
       storage.setItem('searchedCards', card)
@@ -65,23 +66,47 @@ const Movies = ({loggedIn}) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    setLoading(true);
-    moviesApi.getCards()
-    .then((cards) => {
-      setMovies(filterMoviesByQuery(changingMovieData(cards), query, isChecked))
-      setCard(changingMovieData(cards))
-      setIsConected(true)
-      storage.setItem('searchedInput', query);
-      storage.setItem('searchedCheckbox', isChecked);
-      storage.setItem('searchedCards', cards)
-    })
-    .catch(err => {
-      console.log(err);
-      setIsConected(false)
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+    const alwaysChecked = true;
+    if(!query){
+      setInfoTooltipMessage('Нужно ввести ключевое слово')
+      setIsInfoTooltipOpen(true)
+    } else {
+      setLoading(true);
+      if(moviedataBase.length === 0){
+        moviesApi.getCards()
+        .then((cards) => {
+          setMovies(filterMoviesByQuery(changingMovieData(cards), query, isChecked))
+          setCard(filterMoviesByQuery(changingMovieData(cards), query, !alwaysChecked))
+          setIsConected(true)
+          storage.setItem('searchedInput', query);
+          storage.setItem('searchedCheckbox', isChecked);
+          storage.setItem('searchedCards', changingMovieData(cards));
+          SetMoviedataBase(cards)
+        })
+        .catch(err => {
+          console.log(err);
+          setIsConected(false)
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      } else {
+        let currentMovies = moviedataBase;
+        
+        setMovies(filterMoviesByQuery(changingMovieData(currentMovies), query, isChecked))
+        setCard(filterMoviesByQuery(changingMovieData(currentMovies), query, !alwaysChecked))
+        setIsConected(true)
+        storage.setItem('searchedInput', query);
+        storage.setItem('searchedCheckbox', isChecked);
+        storage.setItem('searchedCards', card);
+        // storage.setItem('searchedCards', card);
+        setIsConected(true)
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }
+
+    }
   }
 
   function handleChange(e) {
@@ -98,7 +123,8 @@ const Movies = ({loggedIn}) => {
       setAddedMovies(currentUserCards(res.data, currentUser))
     })
     .catch(err => {
-      console.log(err);
+      setInfoTooltipMessage(err)
+      setIsInfoTooltipOpen(true)
     })
   }
 
@@ -112,7 +138,6 @@ const Movies = ({loggedIn}) => {
   } else if(activePage === 'movies') {
     mainApi.deleteMovie(movie._id)
     .then((res)=>{
-      console.log(res)
       return mainApi.getSavedMovie()
     })   
     .then((res)=>{
@@ -133,7 +158,7 @@ const Movies = ({loggedIn}) => {
               <input 
                 className='movies__search-input' 
                 placeholder='Фильмы' 
-                required 
+                // required 
                 onChange={handleChange}
                 value={query}
               >

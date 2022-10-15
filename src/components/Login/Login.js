@@ -1,8 +1,9 @@
 import './Login.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useFormWithValidation } from '../../utils/hooks/useFormValodation';
 
-const Login = ({handleLogin}) => {
+const Login = ({handleLogin, loggedIn}) => {
 
   const formValues = useFormWithValidation();
 
@@ -10,6 +11,14 @@ const Login = ({handleLogin}) => {
     e.preventDefault();
     handleLogin(formValues.values)
   }
+
+
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (loggedIn) {
+        navigate("/");
+      }
+    }, [loggedIn]);
 
 
   return (
@@ -30,6 +39,8 @@ const Login = ({handleLogin}) => {
                 value = {formValues.values.email || ""}
                 className="register__input" 
                 required 
+                pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                placeholder='email@emal.ru'
               />
               <span className="register__input-error">{formValues.errors.email}</span>
             </label>
@@ -42,6 +53,7 @@ const Login = ({handleLogin}) => {
                 value = {formValues.values.password || ""}
                 className="register__input" 
                 required 
+                minLength = {3}
               />
               <span className="register__input-error">{formValues.errors.password}</span>
             </label>

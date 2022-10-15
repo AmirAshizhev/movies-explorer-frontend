@@ -8,7 +8,7 @@ import useWindowSize from '../../utils/hooks/useWindow';
 import { changingMovieData, currentUserCards, filterMoviesByQuery, storage } from '../../utils/helpers';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const SavedMovies = ({loggedIn}) => {
+const SavedMovies = ({loggedIn, setInfoTooltipMessage, setIsInfoTooltipOpen}) => {
   const [isConected, setIsConected] = useState(null);
   const [isChecked, setIsCheked] = useState(false);
   const { width } = useWindowSize();
@@ -50,16 +50,34 @@ const SavedMovies = ({loggedIn}) => {
   }
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    if(!query){
+      setInfoTooltipMessage('Нужно ввести ключевое слово')
+      setIsInfoTooltipOpen(true)
+    } else {
+      mainApi.getSavedMovie()
+      .then((res)=>{
+        setMovies(filterMoviesByQuery(currentUserCards(res.data, currentUser), query, isChecked))
+        setIsConected(true)
+      })
+      .catch(err => {
+        console.log(err);
+        setIsConected(false)
+      })
+    }
+    
+  }
+
   return(
     <>
       <Header loggedIn={loggedIn} activePage='saved-movies'/>
         <main>
           <div className='movies__search'>
-            <form className='movies__form'>
+            <form className='movies__form' onSubmit={handleSubmit}>
               <input 
                 className='movies__search-input'
                 placeholder='Фильмы' 
-                required
                 onChange={handleChange}
                 value={query}
               ></input>

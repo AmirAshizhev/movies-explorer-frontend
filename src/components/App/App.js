@@ -12,6 +12,7 @@ import mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { storage } from '../../utils/helpers';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
   
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false)
+  const [infoTooltipMessage, setIinfoTooltipMessage] = useState('');
+  const isOpen = isInfoTooltipOpen
 
   useEffect(()=>{
     tokenCheck();
@@ -42,9 +47,14 @@ function App() {
     mainApi.registrateUser( name, email, password )
     .then((data)=>{
       handleLogin( {email: email, password: password} )
+      setIinfoTooltipMessage('вы успешно зарегистрировались')
+      setIsInfoTooltipOpen(true)
       navigate("/signin")
     })
-    .catch(err => console.log(err))
+    .catch(message => {
+      setIinfoTooltipMessage(message)
+      setIsInfoTooltipOpen(true)
+    })
   }
 
   function handleLogin( {email, password} ){
@@ -57,8 +67,9 @@ function App() {
       navigate("/movies")
 
     }) 
-    .catch(err => {
-      console.log(err)
+    .catch(message => {
+      setIinfoTooltipMessage(message)
+      setIsInfoTooltipOpen(true)
     })
   }
 
@@ -72,8 +83,14 @@ function App() {
     mainApi.setUserInformation(data)
     .then((res) => {
       setCurrentUser(res.data);
+      setIinfoTooltipMessage('Профиль успешно обновлен')
+      setIsInfoTooltipOpen(true)
     })
-    .catch(res => console.log(res));
+    .catch(res => {
+      console.log(res)
+      setIinfoTooltipMessage(res)
+      setIsInfoTooltipOpen(true)
+    });
   } 
 
   function tokenCheck() {
@@ -90,6 +107,23 @@ function App() {
     }
   }
 
+  function closeAllPopups () {
+    setIsInfoTooltipOpen(false)
+  }
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if(evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if(isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen]) 
 
 
   return (
@@ -101,6 +135,8 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <Movies
                 loggedIn={loggedIn}
+                setInfoTooltipMessage={setIinfoTooltipMessage}
+                setIsInfoTooltipOpen={setIsInfoTooltipOpen}
               />
             </ProtectedRoute>
             }
@@ -109,7 +145,8 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <SavedMovies
                 loggedIn={loggedIn}
-                // handleDeleteMovie={handleDeleteMovie}
+                setInfoTooltipMessage={setIinfoTooltipMessage}
+                setIsInfoTooltipOpen={setIsInfoTooltipOpen}
               />
             </ProtectedRoute>
           }/>
@@ -123,14 +160,20 @@ function App() {
             </ProtectedRoute>         
           }/>
           <Route path='/signin' element={
-            <Login handleLogin={handleLogin} />}
+            <Login handleLogin={handleLogin} loggedIn={loggedIn}/>}
           />
           <Route path='/signup' element={
-            <Register handleRegister={handleRegister}/>}
+            <Register handleRegister={handleRegister} loggedIn={loggedIn}/>}
           />
           <Route path='/popup' element={<h1>Popup</h1>}/>
           <Route path='/*' element={<PageNotFound/>}/>
         </Routes>
+
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+          message={infoTooltipMessage}
+        />
       </CurrentUserContext.Provider>
 
     </div>

@@ -4,18 +4,22 @@ import './Profile.css'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../../utils/hooks/useFormValodation';
 
-const Profile = ({handleLogout, handleUpdateUser, loggedIn, error}) => {
+const Profile = ({handleLogout, handleUpdateUser, loggedIn, error, setInfoTooltipMessage, setIsInfoTooltipOpen}) => {
   const currentUser = React.useContext(CurrentUserContext);
   const formValues = useFormWithValidation();
   
   const [name, setName] = useState(currentUser.name)
   const [email, setEmail] = useState(currentUser.email)
   const [isEditProfile, setIsEditProfile] = useState(true)
+  const [inputData, setInputData] = useState(false)
 
   useEffect(() => {
     setName(currentUser.name);
     setEmail(currentUser.email);
-  }, [currentUser]); 
+
+    const {name, email} = formValues.values;
+    setInputData(name === currentUser.name && email === currentUser.email)
+  }, [currentUser, formValues]); 
 
   useEffect(() =>{
     formValues.resetForm({name: name, email: email})
@@ -88,12 +92,14 @@ const Profile = ({handleLogout, handleUpdateUser, loggedIn, error}) => {
               onChange={formValues.handleChange}
               value = {formValues.values.email || ""}
               required
+              pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+              placeholder='email@emal.ru'
             >
             </input>
             <span className='profile__error-edit'>{formValues.errors.email}</span>
           </label>
           <span>{error}</span>
-          <button type='submit' className='profile__btn-save' disabled={!formValues.isValid} onClick={handleSaveSubmit}>Сохранить</button>
+          <button type='submit' className='profile__btn-save' disabled={!formValues.isValid || inputData} onClick={handleSaveSubmit}>Сохранить</button>
         </form>}           
       </main>
 

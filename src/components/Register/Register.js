@@ -1,8 +1,9 @@
 import './Register.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useFormWithValidation } from '../../utils/hooks/useFormValodation';
 
-const Register = ({ handleRegister }) => {
+const Register = ({ handleRegister, loggedIn}) => {
 
   const formValues = useFormWithValidation();
 
@@ -10,6 +11,13 @@ const Register = ({ handleRegister }) => {
     e.preventDefault();
     handleRegister(formValues.values)
   }
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/");
+    }
+  }, [loggedIn]);
 
 
   return (
@@ -44,6 +52,8 @@ const Register = ({ handleRegister }) => {
                 required 
                 onChange={formValues.handleChange}
                 value = {formValues.values.email || ""}
+                pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+                placeholder='email@emal.ru'
               />
               <span className="register__input-error">{formValues.errors.email}</span>
             </label>
@@ -56,6 +66,7 @@ const Register = ({ handleRegister }) => {
                 required 
                 onChange={formValues.handleChange}
                 value = {formValues.values.password || ""}
+                minLength = {3}
               />
               <span className="register__input-error">{formValues.errors.password}</span>
             </label>

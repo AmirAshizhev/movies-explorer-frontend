@@ -9,8 +9,12 @@ constructor(options) {
     if (res.ok) {
       return res.json();
     }
+    // console.log(res)
 
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return res.json().then((data) => {
+      return Promise.reject(`Ошибка: ${data.message || 'Неизвестная ошибка'}`);
+    });
+    // return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   registrateUser(name, email, password){
@@ -100,6 +104,8 @@ constructor(options) {
 
 const mainApi = new MainApi({
   baseUrl: 'https://api.movies-explorer.amir.nomoredomains.sbs',
+
+  // baseUrl: 'http://localhost:3002',
   headers: {
     'Content-Type': 'application/json'
   }

@@ -1,4 +1,5 @@
 const imageBaseUrl = "https://api.nomoreparties.co/" 
+const noTrailerBaseUrl = "https://www.youtube.com/";
 
 export const storage = {
   getItem: (item) => {
@@ -21,7 +22,7 @@ export function changingMovieData(movies) {
     image: imageBaseUrl + movie.image.url,
     nameEN: movie.nameEN || movie.nameRU,
     nameRU: movie.nameRU || movie.nameEN,
-    trailerLink: movie.trailerLink,
+    trailerLink: isValidUrl(movie.trailerLink) ? movie.trailerLink : noTrailerBaseUrl,
     year: movie.year,
     movieId: movie.id,
     thumbnail: imageBaseUrl + movie.image.formats.thumbnail.url
@@ -57,3 +58,14 @@ export   function filterMoviesByQuery(movies, query, isChecked) {
     return movies.filter(filterMovie)
   }
 }
+
+const isValidUrl = (url) => {
+  try {
+    new URL(url);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
+export default isValidUrl;
