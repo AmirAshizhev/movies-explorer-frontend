@@ -3,8 +3,8 @@ import Photo from '../../images/pic__COLOR_pic.png'
 
 const Portfolio = () => {
   return (
-    <section className='portfolio'>
-      <h2 className="portfolio__title">Студент</h2>
+    <section className='portfolio' id='portfolio'>
+      <h2 className="portfolio__title" >Студент</h2>
       <div className='portfolio__info'>
         <img src={Photo} alt="Мое фото" className='portfolio__img'/>
         <h3 className="portfolio__name">Амир</h3>
